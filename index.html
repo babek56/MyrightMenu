@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mycontextMenu {
+            display: none;
+            list-style: none;
+            position: absolute;
+            z-index: 999;
+            box-shadow: 5px 5px 5px gray;
+            width: 200px;
+            height: 150px;
+            border: solid 1px solid gray;
+            background-color: darkgray;
+        }
+        
+        #mycontextMenu li {
+            height: 30px;
+            border-bottom: 1px solid silver;
+        }
+        
+        #mycontextMenu li:last-child {
+            border: none;
+        }
+    </style>
+</head>
+
+<body oncontextmenu="showMyMenu(event)">
+
+    <ul id="mycontextMenu">
+        <li>Open New Window</li>
+        <li>Close</li>
+        <li>Print</li>
+    </ul>
+
+    <script>
+        function showMyMenu() {
+            e.preventDefult()
+            var menu = document.getElementById(mycontextMenu)
+            menu.style.left = e.clientX
+            menu.client.top = e.clientY
+            menu.style.display = "block"
+
+        }
+    </script>
+</body>
+
+</html>
