@@ -1,50 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <style>
-        #mycontextMenu {
+        #myContextMenu {
             display: none;
             list-style: none;
             position: absolute;
             z-index: 999;
             box-shadow: 5px 5px 5px gray;
             width: 200px;
-            height: 150px;
-            border: solid 1px solid gray;
-            background-color: darkgray;
+            height: 180px;
+            border: 1px solid gray;
+            background-color: rgb(234, 231, 245);
+            padding: 0px;
+            font-family: verdana;
         }
         
-        #mycontextMenu li {
+        #myContextMenu li {
             height: 30px;
             border-bottom: 1px solid silver;
+            padding-top: 15px;
+            padding-left: 20px;
         }
         
-        #mycontextMenu li:last-child {
-            border: none;
+        #myContextMenu li:hover {
+            background-color: orange;
+            cursor: pointer;
+        }
+        
+        #myContextMenu li:last-child {
+            border: none !important;
         }
     </style>
+
 </head>
 
-<body oncontextmenu="showMyMenu(event)">
-
-    <ul id="mycontextMenu">
-        <li>Open New Window</li>
-        <li>Close</li>
-        <li>Print</li>
+<body oncontextmenu="showMyMenu(event)" onclick="hideMenu()" onkeydown="execShortKey(event)">
+    <ul id="myContextMenu">
+        <li onclick="window.open()">Open <u>N</u>ew Window</li>
+        <li onclick="myPrint()"><u>P</u>rint</li>
+        <li onclick="hideMenu()">E<u>x</u>it</li>
+        <li onclick="window.close()"><u>C</u>lose</li>
     </ul>
 
-    <script>
-        function showMyMenu() {
-            e.preventDefult()
-            var menu = document.getElementById(mycontextMenu)
+
+
+    <script type="text/javascript">
+        var isOpenMenu = false
+
+        function showMyMenu(e) {
+            e.preventDefault()
+            var menu = document.getElementById('myContextMenu')
             menu.style.left = e.clientX
-            menu.client.top = e.clientY
+            menu.style.top = e.clientY
             menu.style.display = "block"
 
+            isOpenMenu = true
+        }
+
+        function myPrint() {
+
+            hideMenu()
+            window.print()
+        }
+
+        function hideMenu() {
+            document.getElementById('myContextMenu').style.display = 'none'
+            isOpenMenu = false
+        }
+
+        function execShortKey(e) {
+            //alert(e.keyCode)
+            if (isOpenMenu) {
+                switch (e.keyCode) {
+
+                    case 78:
+                        window.open();
+                        break;
+                    case 80:
+                        myPrint();
+                        break;
+                    case 88:
+                        hideMenu();
+                        break;
+                    case 67:
+                        window.close();
+                        break;
+                }
+
+            }
         }
     </script>
 </body>
